@@ -48,6 +48,7 @@ def main():
     for (lng, lat) in result:
       print(lng, lat)
   else:
+    print("LINESTRING(")
     for (lng, lat) in result[:-1]:
       (n_lng, n_lat) = FromLonLat(lng, lat)
       print(n_lng, n_lat, end=",\n")
@@ -55,6 +56,7 @@ def main():
     (lng, lat) = result[-1]
     (n_lng, n_lat) = FromLonLat(lng, lat)
     print(n_lng, n_lat)
+    print(")")
 
 if __name__ == "__main__":
     main()
