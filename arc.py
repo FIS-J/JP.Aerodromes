@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from toDEG import toDEG
 from sys import argv
 from typing import List, Tuple
 from geopy.distance import distance
@@ -13,21 +14,6 @@ from toMapsui import FromLonLat
 # $6: step (in deg) = splits every...
 
 # Output: lng lat(in deg) every line
-
-def toDEG(dms: str | float) -> float:
-  if type(dms) is str:
-    if dms.endswith('E') or dms.endswith('N'):
-      dms = dms[:-1]
-    
-    dms = float(dms)
-
-  s = dms % 100
-  m = round((dms / 100) % 100, 0)
-  h = round(dms / 10000, 0)
-
-  deg = h + (m / 60) + (s / 3600)
-
-  return deg
 
 def arc_deg(CENTER_LAT: float, CENTER_LNG: float, RADIUS_NM: float, ARC_BEGIN_DEG: float, ARC_END_DEG: float, STEP_DEG: float = 1) -> List[Tuple[float, float]]:
   RADIUS_KM = float(RADIUS_NM) * 1.852
