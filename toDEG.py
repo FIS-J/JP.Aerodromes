@@ -7,8 +7,8 @@ def toDEG(dms: str | float) -> float:
     dms = float(dms)
 
   s = dms % 100
-  m = round((dms / 100) % 100, 0)
-  h = round(dms / 10000, 0)
+  m = (dms // 100) % 100
+  h = dms // 10000
 
   deg = h + (m / 60) + (s / 3600)
 
