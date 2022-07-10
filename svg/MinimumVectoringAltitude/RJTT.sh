@@ -6,6 +6,8 @@ SKYTREE_E='1394839E'
 DEFAULT_N='353312N'
 DEFAULT_E='1394652E'
 
+MAG_VAR='-8'
+
 ARC_STEP=('5' '2' '1')
 
 cd `dirname $0`
@@ -23,7 +25,10 @@ arc() {
     echo ','
   fi
 
-  python -u ../../arc.py ${3:-$DEFAULT_N} ${4:-$DEFAULT_E} $RADIUS $1 $2 ${ARC_STEP[ARC_STEP_LV]}
+  local ARC_FROM=`expr $1 + $MAG_VAR`
+  local ARC_TO=`expr $2 + $MAG_VAR`
+
+  python -u ../../arc.py ${3:-$DEFAULT_N} ${4:-$DEFAULT_E} $RADIUS $ARC_FROM $ARC_TO ${ARC_STEP[ARC_STEP_LV]}
 
   IS_FIRST=0
 }
@@ -33,7 +38,8 @@ arc() {
 # $3: lat [dms] (opt)
 # $4: lng [dms] (opt)
 arc_pt() {
-  python -u ../../point.py ${3:-$DEFAULT_N} ${4:-$DEFAULT_E} $1 $2
+  local ANGLE=`expr $2 + $MAG_VAR`
+  python -u ../../point.py ${3:-$DEFAULT_N} ${4:-$DEFAULT_E} $1 $ANGLE
 }
 # $1: bridge from [nm]
 # $2: bridge to [nm]
