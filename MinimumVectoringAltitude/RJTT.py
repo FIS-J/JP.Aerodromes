@@ -173,7 +173,7 @@ LINESTRING(arc_bridge(6, 7, 260))
 
 
 LINESTRING(arc_bridge(7, 10, 210))
-LINESTRING(arc_bridge(7, 10, 280))
+LINESTRING(arc_bridge(7, 15, 280))
 
 
 LINESTRING(arc_bridge(10, 15, 130))
