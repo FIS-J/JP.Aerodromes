@@ -137,7 +137,6 @@ SetRadius(105)
 
 LINESTRING(
   arc_pt(80, 29.1653, RJAA_ARP_N, RJAA_ARP_E),
-  dms(1410437.57, 362228.03),
   arc_pt(None, 41.488),
   arc_pt(None, 42),
   arc(42, 69.5),
