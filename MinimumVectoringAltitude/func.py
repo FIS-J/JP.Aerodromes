@@ -1,6 +1,8 @@
 import os
 import sys
-from typing import List, Tuple
+from typing import Dict, List, Tuple
+import dataclasses
+import json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -88,3 +90,27 @@ def LINESTRING(*args: Tuple[float, float] | List[Tuple[float, float]]):
         _print_xy(lonlat, _is_first_row)
   
   print(")")
+
+@dataclasses.dataclass
+class EachLabel:
+  text: str
+  x: float | None
+  y: float | None
+  lon: float | None
+  lat: float | None
+  minVisible: float | None
+  maxVisible: float | None
+
+def label(text: str, lonlat_dic: Dict[Tuple[float | None, float | None], List[Tuple[float, float]]]) -> List[EachLabel]:
+  arr: List[EachLabel] = []
+
+  for visible_minmax, lonlat_arr in lonlat_dic.items():
+    for lonlat in lonlat_arr:
+      xy = FromLonLat(lonlat[0], lonlat[1])
+      arr.append(EachLabel(text, xy[0], xy[1], lonlat[0], lonlat[1], visible_minmax[0], visible_minmax[1]))
+
+  return arr
+
+def EachLabelToJSON(*args: List[EachLabel]):
+  obj_dict_arr = [dataclasses.asdict(v) for obj in args for v in obj]
+  json.dump(obj_dict_arr, sys.stdout)
